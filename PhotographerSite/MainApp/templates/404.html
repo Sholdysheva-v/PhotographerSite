@@ -1,0 +1,13 @@
+{% extends 'MainApp/base.html' %}
+{% load static %}
+
+{% block title %}404 - Страница не найдена{% endblock %}
+
+{% block content %}
+    <div class="error-container">
+        <h2>404 - Страница не найдена</h2>
+        <p>{{ error_message }}</p>
+        <p>Запрашиваемая страница не существует или была перемещена.</p>
+        <a href="{% url 'index' %}" class="btn">Вернуться на главную</a>
+    </div>
+{% endblock %} 

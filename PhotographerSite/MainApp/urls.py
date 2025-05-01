@@ -5,7 +5,10 @@ from django.urls import register_converter
 register_converter(converters.DateOrder, "date_order")
 
 urlpatterns = [
-    path('', views.index, name='home'),
+    path('', views.index, name='index'),
     path('order/<int:order_id>/', views.order, name='order'),
-    path('orders/<date_order:date>/', views.date_order, name='date_order'),
+    path('delivery/<int:year>/<int:month>/<int:day>/', views.date_delivery, name='delivery_date'),
 ]
+
+
+handler404 = 'MainApp.views.page_not_found'

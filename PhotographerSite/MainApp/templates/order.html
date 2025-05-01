@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load photo_tags %}
+
+{% block title %}Заявка #{{ order_id }} - Фотосессия{% endblock %}
+
+{% block content %}
+    <div class="order-details">
+        <h2>Информация о заявке #{{ order_id }}</h2>
+        
+        {% if order_exists %}
+            <div class="order-info">
+                <p><strong>Дата заявки:</strong> {{ order_date }}</p>
+                <p><strong>Статус:</strong> {{ order_status|upper }}</p>
+                <p><strong>Место проведения фотосъемки:</strong> {{ delivery_address|truncatewords:10 }}</p>
+                
+                <h3>Содержимое заявки:</h3>
+                <ul class="order-items">
+                    {% for item in items %}
+                    <li>
+                        <div class="item-info">
+                            <span class="item-name">{{ item.name|truncatewords:5 }}</span>
+                            <span class="item-quantity">{{ item.quantity }} шт.</span>
+                            <span class="item-price">{{ item.price|currency }}</span>
+                        </div>
+                    </li>
+                    {% empty %}
+                    <li>В заявке нет содержимого</li>
+                    {% endfor %}
+                </ul>
+                
+                <p class="order-total"><strong>Общая сумма:</strong> {{ total_price|currency }}</p>
+            </div>
+        {% else %}
+            <div class="error-message">
+                <p>Заказ с указанным номером не найден.</p>
+                <a href="{% url 'index' %}" class="btn">Вернуться на главную</a>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %} 
